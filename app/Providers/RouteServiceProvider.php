@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
+use L5Swagger\L5Swagger;
+
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -48,5 +50,25 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    public function map()
+    {
+        $this->mapApiRoutes();
+
+
+        $this->mapSwaggerRoutes();
+
+        // add the following code to include the Swagger routes
+        if ($this->app->environment('local')) {
+            L5Swagger::routes($this->app, null, 'api/documentation');
+        }
+    }
+
+    protected function mapSwaggerRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('api/documentation')
+            ->group(base_path('routes/swagger.php'));
     }
 }

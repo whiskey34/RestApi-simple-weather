@@ -1,0 +1,312 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Dokumentasi Weather API",
+        "description": "Simple weather API with REST",
+        "contact": {
+            "email": "black.delfino28@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/weather",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Weather"
+                ],
+                "summary": "Get all weather conditions",
+                "operationId": "0b44a6a51e17891ea1fc7fa715fd892a",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "ID of the weather condition",
+                                                "type": "integer"
+                                            },
+                                            "temperature": {
+                                                "description": "Temperature in Celsius",
+                                                "type": "number"
+                                            },
+                                            "humidity": {
+                                                "description": "Humidity percentage",
+                                                "type": "number"
+                                            },
+                                            "created_at": {
+                                                "description": "Timestamp when the record was created",
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "description": "Timestamp when the record was last updated",
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Weather"
+                ],
+                "summary": "Post new weather conditions data",
+                "operationId": "d86fb55cfe5d7620e73b0c148280621d",
+                "requestBody": {
+                    "description": "JSON Payload containing weather data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "temperature": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "humidity": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "wind_speed": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{id}": {
+            "get": {
+                "tags": [
+                    "Weather"
+                ],
+                "summary": "Get current weather conditions",
+                "operationId": "afc63b6d738842fa524742d5a0f0ccb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Weather condition's ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "location_id": {
+                                            "type": "integer"
+                                        },
+                                        "temperature": {
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "humidity": {
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "wind_speed": {
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "id": 1,
+                                    "location_id": 123,
+                                    "temperature": 25.5,
+                                    "humidity": 80,
+                                    "wind_speed": 10,
+                                    "description": "Sunny"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/update/{id}": {
+            "put": {
+                "tags": [
+                    "Weather"
+                ],
+                "summary": "Update a specific weather condition",
+                "operationId": "e720c266e3c84e6f6de23baa6f97c976",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the weather condition",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "temperature": {
+                                        "description": "Temperature in Celsius",
+                                        "type": "number"
+                                    },
+                                    "humidity": {
+                                        "description": "Humidity percentage",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Weather condition updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Response message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Weather condition not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Error message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Weather"
+                ],
+                "summary": "Delete a weather condition data",
+                "operationId": "59fed61c957d28b2b68148406c85036b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of weather condition to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Weather Condition deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

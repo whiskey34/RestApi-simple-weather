@@ -22,13 +22,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Route::get('/weather/{id}/forecast', [WeatherController::class, 'getForecast']);
+// for documentation openAPI/swagger
 
-Route::get('/weather', [WeatherController::class, 'index']);
-Route::get('/weather/{id}', [WeatherController::class, 'show']);
-Route::post('/weather', [WeatherController::class, 'store']);
-Route::put('/weather/{id}', [WeatherController::class, 'update']);
-Route::delete('/weather/{id}', [WeatherController::class, 'destroy']);
+
+
+
+
+
+
+// endpoint API
+Route::group(['prefix' => 'weather'], function () {
+    Route::get('/', [WeatherController::class, 'index']);
+    Route::get('/{id}', [WeatherController::class, 'show']);
+    Route::post('/', [WeatherController::class, 'store']);
+    Route::put('/update/{id}', [WeatherController::class, 'update']);
+    Route::delete('/delete/{id}', [WeatherController::class, 'destroy']);
+});
 
 // route for location
 Route::get('/location', [WeatherController::class, 'indexLocation']);
@@ -36,3 +45,11 @@ Route::get('/location/{id}', [WeatherController::class, 'showLocation']);
 Route::post('/location', [WeatherController::class, 'storeLocation']);
 Route::put('/location/{id}', [WeatherController::class, 'updateLocation']);
 Route::delete('/location/{id}', [WeatherController::class, 'destroyLocation']);
+
+
+// route for the forecast
+Route::get('/forecast', [WeatherController::class, 'indexForecast']);
+Route::get('/forecast/show/{id}', [WeatherController::class, 'showForecast']);
+Route::post('/forecast/add-new', [WeatherController::class, 'storeForecast']);
+Route::put('/forecast/update/{id}', [WeatherController::class, 'updateForecast']);
+Route::delete('/forecast/delete/{id}', [WeatherController::class, 'destroyForecast']);

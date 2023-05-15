@@ -185,6 +185,8 @@ return [
         /*
          * Package Service Providers...
          */
+        L5Swagger\L5SwaggerServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -210,6 +212,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'L5Swagger' => L5Swagger\L5SwaggerFacade::class,
+
     ])->toArray(),
 
 ];
