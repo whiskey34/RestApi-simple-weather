@@ -1,5 +1,3 @@
-Sure, here's a basic template for a README file that you can use as a starting point for your API documentation:
-
 # Weather API
 
 The Weather API is a simple REST API that provides weather information. It allows users to retrieve, add, update, and delete weather conditions data.
